@@ -27,7 +27,7 @@ module.exports = {
         const regularSuccess = diceRolls.filter(roll => roll <= skill && roll > Math.floor(skill / 2)).length
         const hardSuccess = diceRolls.filter(roll => roll <= Math.floor(skill / 2) && roll > Math.floor(skill / 5)).length
         const extremeSuccess = diceRolls.filter(roll => roll <= Math.floor(skill / 5) && roll > 5).length
-        const bigSuccess = diceRolls.filter(roll => roll <= 5).length
+        const bigSuccess = diceRolls.filter(roll => roll <= 5 && roll <= skill).length
         const fumble = diceRolls.filter(roll => roll >= 96 && roll > skill).length
         
         if(skillname){
@@ -46,14 +46,13 @@ module.exports = {
             interaction.reply(resultMessage + `哦～極限成功`)
         }
         if (bigSuccess > 0) {
-            interaction.reply(resultMessage + `噔噔噔～大成功`)
+            interaction.reply(resultMessage + `誒！噔噔噔～大成功！`)
         }
         if (fumble > 0) {
-            interaction.reply(resultMessage + `噔噔咚，大失敗`)
+            interaction.reply(resultMessage + `噔噔咚～，大失敗`)
         }
         if (loss > 0){
             interaction.reply(resultMessage + "ㄨㄚˊ～失敗")
         }
-        
     }
 }
