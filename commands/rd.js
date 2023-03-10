@@ -4,7 +4,7 @@ const { Options } = require('distube')
 module.exports = {
     data : new SlashCommandBuilder()
     .setName('roll_dice')
-    .setDescription('Roll COC dice')
+    .setDescription('Roll Dice')
     .addNumberOption(option => option
         .setName('dice')
         .setDescription('Number of dice')
