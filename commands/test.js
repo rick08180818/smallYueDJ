@@ -6,5 +6,6 @@ module.exports = {
 		.setDescription('test bot'),
 	async execute(interaction) {
 		await interaction.reply('test success!');
+		
 	},
 };
