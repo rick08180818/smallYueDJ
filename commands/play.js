@@ -1,5 +1,5 @@
-const {SlashCommandBuilder} = require('discord.js')
-const {joinVoiceChannel,createAudioPlayer} = require('@discordjs/voice')
+const {SlashCommandBuilder, Client} = require('discord.js')
+const {joinVoiceChannel,createAudioPlayer,getVoiceConnection} = require('@discordjs/voice')
 const {ytdl} = require('ytdl-core')
 
 module.exports = {
@@ -11,13 +11,15 @@ module.exports = {
         .setDescription('youtuber URL')
         .setRequired(true)),
 async execute(interaction) {
-    const stream = ytdl(interaction.options.getString('url'),{filter:'audioonly'})
+    const url = interaction.options.getString('url')
+    const stream = ytdl(url,{filter:'audioonly'})
     const player = createAudioPlayer()
+    const connection = getVoiceConnection()
 
-        if(interaction.member.voice.channel){
+        if(connection){
             const connection = joinVoiceChannel({
                 channelId: interaction.member.voice.channel.id,
-                guildId: interaction.guild.id,
+                guildId: interaction.guildId,
                 adapterCreator: interaction.channel.guild.voiceAdapterCreator,
             })
             connection.subscribe(player)

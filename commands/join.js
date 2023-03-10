@@ -1,16 +1,24 @@
-const {SlashCommandBuilder, Client} = require('discord.js')
-const { execute } = require('./test')
+const { joinVoiceChannel } = require('@discordjs/voice');
+const {SlashCommandBuilder,VoiceState,GuildMember, Options} = require('discord.js')
 
-module.exports={
-    data:new SlashCommandBuilder()
-        .setName('join')
-        .setDescription('bot join voice channel'),
-    async execute(interaction){
-       if (interaction.member.voice.channel !== null) {
-        this.connection[interaction.guild.id] = await Client.member.voice.channel.join()
-        }
-       else{
-        interaction.channel.reply('請先進入語音頻道')
-        }
+module.exports = {
+    data: new SlashCommandBuilder()
+      .setName('join')
+      .setDescription('join voice channel'),
+    async execute(interaction) {
+        const voiceChannel = '1007638917408894986'
+        if(voiceChannel){
+        const connection = joinVoiceChannel({
+            channelId: voiceChannel,
+            guildId: interaction.guildId,
+            adapterCreator: interaction.channel.guild.voiceAdapterCreator,
+        });
+        interaction.reply('成功加入語音頻道')
+        console.log(voiceChannel)
+
+      }else{
+        interaction.reply('請先加入語音頻道')
+        console.log(voiceChannel)
+      }
     }
 }
